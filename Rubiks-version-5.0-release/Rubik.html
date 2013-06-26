@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rubik's Cube</title> 
+        <script src="javascript/jquery.js"></script>
+        <script src="javascript/Three.js"></script>
+        <script src="javascript/Detector.js"></script>
+        <script src="javascript/rubik.js"></script>
+        
+        <link href="css/rubik.css" rel="stylesheet" />
+        
+        <link rel="icon" type="images/ico" href="images/favicon.ico">
+    </head>
+    <body id="myBody" onload="init();">
+        <div id="container">
+            <div id="header"></div>
+            <div id="body">
+                <table style='margin: auto;min-width:1435px;' id="mainTable">
+                    <tr>
+                        <td colspan='2' style='padding-left:20px;'>
+                            <h1 style='text-align: center;'>Rubik's Cube With Zuks</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='padding-left:20px;vertical-align: top;' id="canvasTD"><canvas id="myCanvas" width="900" height="720" >Canvas not supported by your browser!</canvas></td>
+                        <td style='vertical-align: top;'>
+
+                            <span style="padding-left: 0px;padding-right:15px;">MIRRORS (m) <input type="checkbox" id="setMirrorsCB" onchange="setMirrors();" /></span>
+                            
+                            <br />
+                            <input type="button" class="otherButton glow" value="RANDOMIZE CUBE" onclick="randomizeCube();" />
+                            <input type="button" id="reverseSolve" class="otherButton glow" value="SOLVE CUBE" onclick="rotateCubeReverse(true);" />
+                            
+                            <span id="speedSpan">
+                                SPEED:
+                                <select id="speedSelect" onchange="setSpeed();">
+                                    <option value="1">SLOW</option>
+                                    <option value="2">NORMAL</option>
+                                    <option value="3" selected>FAST</option>
+                                    <option value="5">VERY FAST</option>
+                                    <option value="10">EXTREME</option>
+                                    <option value="90">INSTANT</option>
+                                </select>
+                            </span>
+
+                            <br />
+                            <input class="directionButton glow" type='button' style='background: url("images/zRotUp.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,2,"z");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/zRotDown.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,2,"z");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/xRotUp.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,2,"x");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/xRotDown.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,2,"x");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/yRotLeft.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,2,"y");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/yRotRight.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,2,"y");' /><br />
+                            
+                            <br />
+                            <input class="directionButton glow" type='button' style='background: url("images/zRotFrontUp.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,1,"z");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/zRotMiddleUp.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,0,"z");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/zRotBackUp.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,-1,"z");' />
+
+                            <br />
+                            <input class="directionButton glow" type='button' style='background: url("images/zRotFrontDown.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,1,"z");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/zRotMiddleDown.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,0,"z");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/zRotBackDown.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,-1,"z");' /><br />
+                            
+                            <br />
+                            <input class="directionButton glow" type='button' style='background: url("images/xRotBackUp.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,-1,"x");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/xRotMiddleUp.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,0,"x");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/xRotFrontUp.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,1,"x");' />
+
+                            <br />
+                            <input class="directionButton glow" type='button' style='background: url("images/xRotBackDown.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,-1,"x");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/xRotMiddleDown.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,0,"x");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/xRotFrontDown.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,1,"x");' /><br />
+
+                            
+                            <br />
+                            <input class="directionButton glow" type='button' style='background: url("images/yRotTopLeft.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,1,"y");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/yRotTopRight.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,1,"y");' /><br />
+
+                            <input class="directionButton glow" type='button' style='background: url("images/yRotMiddleLeft.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,0,"y");' />
+                            <input class="directionButton glow" type='button' style='background: url("images/yRotMiddleRight.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,0,"y");' /><br />
+
+                            <input class="directionButton glow" type='button' style='background: url("images/yRotBottomLeft.png") no-repeat;background-size: 100%;' onclick='rotateCube(1,-1,"y");' />                   
+                            <input class="directionButton glow" type='button' style='background: url("images/yRotBottomRight.png") no-repeat;background-size: 100%;' onclick='rotateCube(-1,-1,"y");' />
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="footer">A Zuks Production</div>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,112 @@
+body
+{
+    font-weight: bold;
+    margin: 0;
+    background-color: #ccccff;
+    color: black;
+    position: relative;
+    
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+body::-moz-selection { background: transparent; }
+
+#myCanvas
+{
+    /*border: 2px solid orangered;*/
+    background: black;
+}
+.center
+{
+    text-align: center;
+}
+h1
+{
+    background-color: black;
+    color: #ccccff;
+    margin: 0px;
+}
+a#download
+{
+    color: black;
+}
+
+
+table#movesTable td
+{
+    border: 1px red solid;
+}
+
+input.directionButton
+{
+    width: 75px;
+    height:75px;
+    margin: 3px;
+}
+
+span#speedSpan
+{
+    margin-right: 15px;
+}
+
+select#speedSelect
+{
+    background: black;
+    color: #ccccff;
+}
+
+input.otherButton
+{
+    background: black;
+    color: #ccccff;
+    margin-right: 15px;
+}
+
+input.glow:hover
+{
+    -moz-box-shadow: 0px 0px 15px 50px black;
+    -webkit-box-shadow: 0px 0px 15px 50px black;
+    box-shadow: 0px 0px 15px 5px black;
+}
+
+input.otherButton:hover
+{
+    
+    
+}
+
+html,body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+#container {
+   min-height:100%;
+   position:relative;
+}
+#header {
+   background:#ff0;
+   padding:0px;
+}
+#body {
+   padding:10px;
+   padding-bottom:60px;   /* Height of the footer */
+}
+#footer
+{
+    background-color: black;
+    width:100%;
+    height:20px;
+    text-align: right;
+    color: #ccccff;
+    margin: auto;
+    margin-top: 10px;
+    padding-right: 10px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
